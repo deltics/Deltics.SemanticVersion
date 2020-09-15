@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Deltics.SemanticVersioning.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Deltics.SemVer2\Deltics.SemanticVersioning.csproj" />
+    <ProjectReference Include="..\Deltics.SemanticVersion\Deltics.SemanticVersion.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,10 @@
 ﻿using System;
 
+
 namespace Deltics.SemanticVersioning.Tests
 {
     using Xunit;
-    using Deltics.SemanticVersioning;
+    using SemanticVersioning;
 
 
     public class ParseTests
