@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>Deltics.SemVer</PackageId>
+    <PackageId>Deltics.SemanticVersion</PackageId>
     <Version>0.0.1</Version>
     <Authors>Jolyon Direnko-Smith</Authors>
     <Description>Lightweight, simple to use implementation of Semantic Version numbers (see semver.org)</Description>
     <IsPackable>true</IsPackable>
-    <RootNamespace>Deltics.SemanticVersioning</RootNamespace>
+    <RootNamespace>Deltics.SemanticVersion</RootNamespace>
   </PropertyGroup>
 
 </Project>
