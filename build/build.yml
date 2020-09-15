@@ -25,7 +25,7 @@ steps:
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
-      projects: '../src/Deltics.SemanticVersion.csproj'
+      projects: '../src/Deltics.SemanticVersion/Deltics.SemanticVersion.csproj'
       
   # TODO: Run tests
 
