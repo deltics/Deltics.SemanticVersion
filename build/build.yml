@@ -25,7 +25,7 @@ steps:
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
-      projects: '../Deltics.SemanticVersion.sln'
+      projects: '../src/Deltics.SemanticVersion.sln'
       
   # TODO: Run tests
 
@@ -36,7 +36,7 @@ steps:
     inputs:
       command: 'pack'
       arguments: '--configuration $(buildConfiguration)'
-      packagesToPack: '../Deltics.SemanticVersion/Deltics.SemanticVersion.csproj'
+      packagesToPack: '../src/Deltics.SemanticVersion/Deltics.SemanticVersion.csproj'
       nobuild: true
       versioningScheme: 'off'
 
@@ -51,6 +51,6 @@ steps:
       feedsToUse: 'select'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: 'TestFeed'
+      publishVstsFeed: 'Feed'
       versioningScheme: 'off'
       allowPackageConflicts: true
