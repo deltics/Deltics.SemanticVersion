@@ -25,7 +25,7 @@ steps:
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
-      projects: '../src/Deltics.SemanticVersion/Deltics.SemanticVersion.csproj'
+      projects: '/src/**/*.csproj'
       
   # TODO: Run tests
 
@@ -36,7 +36,7 @@ steps:
     inputs:
       command: 'pack'
       arguments: '--configuration $(buildConfiguration)'
-      packagesToPack: '../src/Deltics.SemanticVersion/Deltics.SemanticVersion.csproj'
+      packagesToPack: '/src/**/*.csproj'
       nobuild: true
       versioningScheme: 'off'
 
