@@ -77,8 +77,9 @@ namespace Deltics.SemanticVersioning
                 ValidateIdentifier(identifier);
 
                 if (int.TryParse(identifier, out var numericValue) && identifier.StartsWith("0"))
-                    throw new FormatException($"'{identifier}' is not a valid identifier.  Numeric pre-release identifiers must not include leading zeroes.");
-                
+                    throw new FormatException(
+                        $"'{identifier}' is not a valid identifier.  Numeric pre-release identifiers must not include leading zeroes.");
+
                 list.Add(identifier);
             }
 
@@ -106,9 +107,10 @@ namespace Deltics.SemanticVersioning
         public SemanticVersion(int major, int minor = 0, int patch = 0,
             IEnumerable<String> prereleaseIdentifiers = null, IEnumerable<String> buildIdentifiers = null)
         {
-            if (   ((major < 0) || (minor < 0) || (patch < 0))
+            if (((major < 0) || (minor < 0) || (patch < 0))
                 || ((major == 0) && (minor == 0) && (patch == 0)))
-                throw new ArgumentOutOfRangeException($"'{major}.{minor}.{patch}' is not a valid Semantic Version number");
+                throw new ArgumentOutOfRangeException(
+                    $"'{major}.{minor}.{patch}' is not a valid Semantic Version number");
 
             this.Major = major;
             this.Minor = minor;
@@ -149,6 +151,74 @@ namespace Deltics.SemanticVersioning
             var buildIdentifiers = hasBuildInfo ? buildInfo.Split('.') : new string[0];
 
             return new SemanticVersion(major, minor, patch, prereleaseIdentifiers, buildIdentifiers);
+        }
+
+
+        public static int Compare(SemanticVersion a, SemanticVersion b)
+        {
+            var result = 0;
+
+            result = b.Major - a.Major;
+            if (result != 0)
+                return Math.Sign(result);
+
+            result = b.Minor - a.Minor;
+            if (result != 0)
+                return Math.Sign(result);
+
+            result = b.Patch - a.Patch;
+            if (result != 0)
+                return Math.Sign(result);
+
+            var aLen = a.PreReleaseIdentifiers.Length;
+            var bLen = b.PreReleaseIdentifiers.Length;
+
+            for (var i = 0; i < Math.Min(aLen, bLen); i++)
+            {
+                var sa = a.PreReleaseIdentifiers[i];
+                var sb = b.PreReleaseIdentifiers[i];
+
+                var aIsNumeric = Int32.TryParse(sa, out var ia);
+                var bIsNumeric = Int32.TryParse(sb, out var ib);
+
+                if (aIsNumeric && bIsNumeric)
+                {
+                    if (ia != ib)
+                        return Math.Sign(ib - ia);
+                }
+                else if (aIsNumeric)
+                    return 1;
+                else if (bIsNumeric)
+                    return -1;
+                else
+                {
+                    result = String.Compare(sb, sa);
+                    if (result != 0)
+                        return result;
+                }
+            }
+
+            return Math.Sign(aLen - bLen);
+        }
+
+        public static bool operator >(SemanticVersion a, SemanticVersion b)
+        {
+            return Compare(a, b) == -1;
+        }
+
+        public static bool operator <(SemanticVersion a, SemanticVersion b)
+        {
+            return Compare(a, b) == 1;
+        }
+
+        public static bool operator ==(SemanticVersion a, SemanticVersion b)
+        {
+            return Compare(a, b) == 0;
+        }
+
+        public static bool operator !=(SemanticVersion a, SemanticVersion b)
+        {
+            return Compare(a, b) != 0;
         }
     }
 }

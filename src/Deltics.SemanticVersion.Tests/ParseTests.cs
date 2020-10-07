@@ -47,6 +47,7 @@ namespace Deltics.SemanticVersioning.Tests
         }
 
         [Theory]
+        [InlineData("0.0.0")]
         [InlineData("1")]
         [InlineData("1.1")]
         [InlineData("alpha.1")]
