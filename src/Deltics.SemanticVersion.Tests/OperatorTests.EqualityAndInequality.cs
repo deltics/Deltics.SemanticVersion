@@ -37,6 +37,19 @@ namespace Deltics.SemanticVersioning.Tests
 
 
         [Theory]
+        [InlineData("1.0.0+arm86", "1.0.0+arm64")]
+        [InlineData("1.0.0+arm86", "1.0.0")]
+        [InlineData("1.0.0", "1.0.0+arm64")]
+        public void EqualityIsTrueEvenWhenVersionsDifferInBuildInformation(string versionA, string versionB)
+        {
+            var a = SemanticVersion.Parse(versionA);
+            var b = SemanticVersion.Parse(versionB);
+
+            Assert.True(a == b);
+        }
+        
+        
+        [Theory]
         [InlineData("0.0.2", "0.0.1")]
         [InlineData("0.1.0", "0.0.1")]
         [InlineData("1.0.0", "0.0.1")]
@@ -68,25 +81,14 @@ namespace Deltics.SemanticVersioning.Tests
         
         [Theory]
         [InlineData("1.0.0+arm86", "1.0.0+arm64")]
+        [InlineData("1.0.0+arm86", "1.0.0")]
+        [InlineData("1.0.0", "1.0.0+arm64")]
         public void InequalityIsFalseWhenVersionsDifferOnlyInBuildInformation(string versionA, string versionB)
         {
             var a = SemanticVersion.Parse(versionA);
             var b = SemanticVersion.Parse(versionB);
 
             Assert.False(a != b);
-        }
-        
-        
-        [Theory]
-        [InlineData("1.0.0+arm86", "1.0.0+arm64")]
-        [InlineData("1.0.0+arm86", "1.0.0")]
-        [InlineData("1.0.0", "1.0.0+arm64")]
-        public void EqualityIsTrueEvenWhenVersionsDifferInBuildInformation(string versionA, string versionB)
-        {
-            var a = SemanticVersion.Parse(versionA);
-            var b = SemanticVersion.Parse(versionB);
-
-            Assert.True(a == b);
         }
     }
 }

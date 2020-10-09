@@ -14,7 +14,6 @@ namespace Deltics.SemanticVersioning
         public string[] BuildIdentifiers { get; }
 
 
-
         public SemanticVersion(int major, int minor = 0, int patch = 0,
             IEnumerable<string> prereleaseIdentifiers = null, IEnumerable<string> buildIdentifiers = null)
         {

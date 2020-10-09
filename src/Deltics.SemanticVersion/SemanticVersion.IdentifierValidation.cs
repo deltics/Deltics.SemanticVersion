@@ -7,10 +7,29 @@ namespace Deltics.SemanticVersioning
 {
     public partial class SemanticVersion
     {
+        public static bool BuildIdentifiersAreEqual(SemanticVersion a, SemanticVersion b)
+        {
+            if ((a.BuildIdentifiers == null) && (b.BuildIdentifiers == null))
+                return true;
+
+            if ((a.BuildIdentifiers == null) || (b.BuildIdentifiers == null))
+                return false;
+
+            if (a.BuildIdentifiers.Length != b.BuildIdentifiers.Length)
+                return false;
+            
+            foreach(var ident in a.BuildIdentifiers)
+                if (!b.BuildIdentifiers.Contains(ident))
+                    return false;
+
+            return true;
+        }
+        
+        
         private static void ValidateIdentifier(string identifier)
         {
             if (String.IsNullOrEmpty(identifier))
-                throw new FormatException($"'{identifier}' is not a valid identifer.  Identifiers must not be empty.");
+                throw new FormatException($"'{identifier}' is not a valid identifier.  Identifiers must not be empty.");
 
             const string ValidIdentifierChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
 
